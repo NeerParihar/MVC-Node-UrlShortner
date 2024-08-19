@@ -11,7 +11,8 @@
         visitHistory:[]
 
     });
-   return  res.status(201).json({"msg":"Created successfully",id:shortID})
+   //return  res.status(201).json({"msg":"Created successfully",id:shortID})
+   return res.render("home",{id:shortID});
     
 }
 
