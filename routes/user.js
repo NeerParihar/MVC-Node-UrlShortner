@@ -1,9 +1,8 @@
-;const express=require("express");
-const router=express.Router()
-const{handleGenerateNewSortURL,handleUrlNavigationToShortUrl,handleGetUrlAnalyticInfo}=require("../controller/url");
+const express=require("express");
+const router=express.Router();
+const { handleCreateUser,handleLoginUser}=require("../controller/user")
 
-router.post("/",handleGenerateNewSortURL);
-router.get("/:shortId",handleUrlNavigationToShortUrl)
-router.get("/analytic/:id", handleGetUrlAnalyticInfo)
+router.post("/",handleCreateUser);
+router.post("/login",handleLoginUser);
 
 module.exports=router;

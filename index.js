@@ -2,12 +2,14 @@ const express=require("express");
 const app=express();
 const dotenv=require("dotenv");
 dotenv.config();
-const Urlroute=require("./routes/user");
+const Urlroute=require("./routes/url");
 const staticRoute=require("./routes/staticRoute");
 const mongoDbConnection =require("./connection")
+const userRoute=require("./routes/user")
 
 const path=require("path");
 
+//ejs config
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"))
 
@@ -17,7 +19,8 @@ mongoDbConnection(process.env.URL).then(()=>console.log("MongoDb Connected!!"))
 //middlewear
 app.use(express.urlencoded({extended:false}));
 app.use("/url",Urlroute);
-app.use("/",staticRoute);
+app.use("/",staticRoute); 
+app.use("/user",userRoute); 
 app.use(express.json()); 
 
 

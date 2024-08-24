@@ -8,6 +8,13 @@ staticRouter.get("/", async (req,res)=>{
     });
 
 })
+staticRouter.get("/signup", (req,res)=>{
+    res.render("signup");
+})
+
+staticRouter.get("/login", (req,res)=>{
+    res.render("login");
+})
 
 
 module.exports=staticRouter;
