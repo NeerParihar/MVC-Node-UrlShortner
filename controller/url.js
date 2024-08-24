@@ -3,8 +3,10 @@
  
  const handleGenerateNewSortURL=async (req,res) => {
     const body=req.body;
+    //console.log(req);
     if(!body.url) return res.status(400).json({"error":"URL is required"});
     const shortID=shortid();
+
     await urlModel.create({
         shortId:shortID,
         redirectURL:body.url,
