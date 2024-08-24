@@ -6,9 +6,14 @@ const Urlroute=require("./routes/url");
 const staticRoute=require("./routes/staticRoute");
 const mongoDbConnection =require("./connection")
 const userRoute=require("./routes/user")
+const cookieParser=require("cookie-parser"); 
+const {restrictToLoggedInUserOnly}=require("./middlewear/auth");
+
 
 const path=require("path");
 
+//
+app.use(cookieParser());
 //ejs config
 app.set("view engine","ejs");
 app.set("views",path.resolve("./views"))
@@ -18,7 +23,7 @@ mongoDbConnection(process.env.URL).then(()=>console.log("MongoDb Connected!!"))
 
 //middlewear
 app.use(express.urlencoded({extended:false}));
-app.use("/url",Urlroute);
+app.use("/url",restrictToLoggedInUserOnly,Urlroute);
 app.use("/",staticRoute); 
 app.use("/user",userRoute); 
 app.use(express.json()); 
