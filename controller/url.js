@@ -26,7 +26,7 @@ const handleUrlNavigationToShortUrl=async (req,res)=>{
         visitHistory:{ timeStamp:Date.now()}
     }
    });
-   console.log(res)
+   //console.log(res)
    return res.redirect(entry.redirectURL);
 }
 
