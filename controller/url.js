@@ -35,6 +35,6 @@ const handleGetUrlAnalyticInfo= async (req,res)=>{
      const result=await urlModel.findOne({shortId});
      return res.status(200).json({"Clicks":result.visitHistory.length,"analytics":result.visitHistory})
 
-}
+} 
 
 module.exports={handleGenerateNewSortURL,handleUrlNavigationToShortUrl,handleGetUrlAnalyticInfo};

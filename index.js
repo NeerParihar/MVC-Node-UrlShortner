@@ -7,7 +7,7 @@ const staticRoute=require("./routes/staticRoute");
 const mongoDbConnection =require("./connection")
 const userRoute=require("./routes/user")
 const cookieParser=require("cookie-parser"); 
-const {restrictToLoggedInUserOnly,checkAuth}=require("./middlewear/auth");
+const {checkForAuthorization,restrictTo}=require("./middlewear/auth");
 
 
 const path=require("path");
@@ -23,10 +23,11 @@ mongoDbConnection(process.env.URL).then(()=>console.log("MongoDb Connected!!"))
 
 //middlewear
 app.use(express.urlencoded({extended:false}));
-app.use("/url",restrictToLoggedInUserOnly,Urlroute);
-app.use("/",checkAuth,staticRoute); 
+app.use("/url",restrictTo(["NORMAL"]),Urlroute);
+app.use("/",staticRoute); 
 app.use("/user",userRoute); 
-app.use(express.json()); 
+app.use(express.json());  
+app.use(checkForAuthorization);
 
 
 
@@ -35,7 +36,7 @@ app.use(express.json());
 const urlModel=require("./models/url")
 app.get("/ejsTest", async(req,res)=>{
     const allUrls=await urlModel.find({});
-    res.render("home",{urls:allUrls});
+    res.render("home",{urls:allUrls}); 
 })
 
 

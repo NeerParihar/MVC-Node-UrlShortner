@@ -1,8 +1,9 @@
 const express=require("express");
 const urlModel = require("../models/url");
+const { restrictTo } = require("../middlewear/auth");
 const staticRouter=express.Router();
-staticRouter.get("/", async (req,res)=>{
-    if(!req.user) return res.redirect("/login")
+staticRouter.get("/",restrictTo(["NORMAL"]), async (req,res)=>{
+
     const allUrls=await urlModel.find({createdBy:req.user._id});
     res.render("home",{
         urls:allUrls
